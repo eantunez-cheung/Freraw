@@ -26,7 +26,8 @@ const module = [
     { title: "Faire un don", icon: faEuroSign },
 ]
 
-export default function Menu({ navigation }) {
+export default function Menu({ navigation, route }) {
+    const userId = route.params.userId
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenue Fréraw</Text>

@@ -6,6 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PersistGate } from 'redux-persist/integration/react';
 import RNBootSplash from 'react-native-bootsplash';
 
+import SignIn from './Screens/Connection/SignIn';
+import SignUp from './Screens/Connection/SignUp';
 import Menu from './Screens/Menu';
 import Videographer from './Screens/Videographer/Videographer'
 import DetailStoryboard from './Screens/Videographer/DetailStoryboard';
@@ -47,11 +49,20 @@ export default function App() {
               headerTitleAlign: 'center',
               headerTintColor: "#FFFFFF"
             }}>
-            <Stack.Screen name='Freraw' component={Menu}
+            <Stack.Screen name='Connexion' component={SignIn} />
+            <Stack.Screen name='Menu' component={Menu}
               options={{
+                title: 'Freraw',
                 headerTitleStyle: {
                   fontFamily: "pirulen rg",
                   fontSize: 30
+                },
+                headerBackTitleVisible: true,
+                headerBackTitle: 'log out',
+                headerBackTitleStyle: {
+                  fontSize: 15,
+                  color: colors.white,
+                  fontWeight: 'bold'
                 }
               }} />
             <Stack.Screen name='Photographe' component={Photographer} />
@@ -68,6 +79,7 @@ export default function App() {
             <Stack.Screen name='Tips et astuces' component={Tips} />
             <Stack.Screen name='Détails tip' component={DetailsTip} options={{ title: 'Tips et astuces' }} />
             <Stack.Screen name='Faire un don' component={Donation} />
+            <Stack.Screen name='Inscription' component={SignUp} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>
