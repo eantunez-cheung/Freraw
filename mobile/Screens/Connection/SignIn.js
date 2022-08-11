@@ -20,7 +20,7 @@ const handleConnection = async (userName, setUserName, password, setPassword, na
     } else {
         let user = await ajax.login(userName, password)
         if (!user.userExist) {
-            Alert.alert('Information', 'Le nom utilisateur et/ou le mot de passe est incorrecte.', [
+            Alert.alert('Information', 'Nom utilisateur et/ou le mot de passe incorrecte.', [
                 {
                     text: 'Ok',
                     onPress: () => {
@@ -31,7 +31,7 @@ const handleConnection = async (userName, setUserName, password, setPassword, na
         } else {
             setUserName('')
             setPassword('')
-            navigation.navigate('Menu', {"userId": user.userId})
+            navigation.navigate('Menu', { userId: user.userId, profil: user.profil })
         }
 
     }
@@ -48,12 +48,12 @@ export default function SignIn({ navigation }) {
                 <TextInput style={styles.inputText}
                     value={userName}
                     placeholder="Nom utilisateur"
-                    placeholderTextColor={colors.grey}
+                    placeholderTextColor={colors.gray}
                     onChangeText={(e) => setUserName(e)} />
                 <TextInput style={styles.inputText}
                     value={password}
                     placeholder="mot de passe"
-                    placeholderTextColor={colors.grey}
+                    placeholderTextColor={colors.gray}
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)} />
             </View>
@@ -67,10 +67,10 @@ export default function SignIn({ navigation }) {
                     <Text style={styles.textButton}>Inscription</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => Alert.alert('Information', 'Attention en mode hors-connexion, vous n\'auriez pas accès au photo que vous avez acheté.',[
+            <TouchableOpacity onPress={() => Alert.alert('Information', 'Attention en mode hors-connexion, vous n\'auriez pas accès au photo que vous avez acheté.', [
                 {
                     text: 'Continuer',
-                    onPress: () => navigation.navigate('Menu', {'userId': null})
+                    onPress: () => navigation.navigate('Menu', { userId: null, profil: null })
                 },
                 {
                     text: 'Annuler',

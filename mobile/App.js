@@ -24,6 +24,8 @@ import DetailsTip from './Screens/Tips/DetailsTip';
 import Photographer from './Screens/Photographer/Photographer';
 import Donation from './Screens/Donation/Donation';
 import MyPhoto from './Screens/Photographer/MyPhoto';
+import Basket from './Components/Photographer/Basket';
+import AddProduct from './Components/Photographer/AddProduct';
 import colors from './Util/colors';
 
 const Stack = createStackNavigator()
@@ -50,6 +52,7 @@ export default function App() {
               headerTintColor: "#FFFFFF"
             }}>
             <Stack.Screen name='Connexion' component={SignIn} />
+            <Stack.Screen name='Inscription' component={SignUp} />
             <Stack.Screen name='Menu' component={Menu}
               options={{
                 title: 'Freraw',
@@ -79,7 +82,8 @@ export default function App() {
             <Stack.Screen name='Tips et astuces' component={Tips} />
             <Stack.Screen name='Détails tip' component={DetailsTip} options={{ title: 'Tips et astuces' }} />
             <Stack.Screen name='Faire un don' component={Donation} />
-            <Stack.Screen name='Inscription' component={SignUp} />
+            <Stack.Screen name='Panier' component={Basket} />
+            <Stack.Screen name='Ajout produit' component={AddProduct} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

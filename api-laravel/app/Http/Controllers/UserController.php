@@ -30,7 +30,7 @@ class UserController extends Controller
         if ($user === null) {
             return response()->json(["userExist" => false]);
         }
-        return response()->json(["userExist" => true, "userId" => $user['id']]);
+        return response()->json(["userExist" => true, "userId" => $user['user_id'], "profil" => $user['profil']]);
     }
 
     /**
@@ -41,7 +41,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User();
+        $payload = json_decode($request->getContent(), true);
+
+        $userEmailExist = User::where('email', $payload['email'])->first();
+        $userNameExist = User::where('user_name', $payload['userName'])->first();
+
+        if ($userNameExist != null) {
+            return response()->json('user name exist');
+        }
+        if($userEmailExist != null){
+            return response()->json('email exist');
+        }
+
+        $user->user_name = $payload['userName'];
+        $user->password = md5($payload['password']);
+        $user->email = $payload['email'];
+        $user->profil = 'CLIENT';
+        $user->save();
+
+        return response()->json('succes');
     }
 
     /**

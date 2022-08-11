@@ -18,7 +18,7 @@ import {
 import {
     faUser,
     faFolder,
-    faXmark
+    faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
 import NavBar from "../../Components/NavBar";
@@ -26,7 +26,7 @@ import { addMyPhoto, deleteFolder } from "../../Util/actions";
 import ListPhoto from "../../Components/Photographer/ListPhoto";
 import colors from "../../Util/colors";
 import CreateFolder from "../../Components/CreateFolder";
-// import MyPhoto from "../../Components/Photographer/MyPhoto";
+import BuyPhoto from "../../Components/Photographer/BuyPhoto";
 
 const elementNavBar = [
     { icon: faImage, activeMenu: "photo" },
@@ -35,7 +35,7 @@ const elementNavBar = [
 ]
 
 const handleRemoveFile = (id, fileName, removeFolder) => {
-    Alert.alert('Confirmation de suppression', `Êtes-vous sûr de vouloir supprimer le fichier "${fileName}" ?`, [
+    Alert.alert('Confirmation de suppression', `Êtes-vous sûr de vouloir supprimer le dossier "${fileName}" ?`, [
         {
             text: "Oui",
             onPress: () => removeFolder(id)
@@ -46,15 +46,40 @@ const handleRemoveFile = (id, fileName, removeFolder) => {
     ])
 }
 
-const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation }) => {
+const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, route }) => {
     const [activeMenu, setActiveMenu] = useState('photo')
     const [createFolderIsClicked, setCreateFolderIsClicked] = useState(false)
     const [offsetScroll, setOffsetScroll] = useState(0)
+    const userId = route.params.userId
+    const profil = route.params.profil
 
     return (
         <View>
             <NavBar elementNavBar={elementNavBar} activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
-            <ScrollView style={styles.scrollview} contentOffset={{y: offsetScroll}}>
+            {
+                activeMenu === 'buyPhoto' ?
+                    profil === 'CLIENT' ?
+                        <View style={styles.container}>
+                            <TouchableOpacity onPress={() => {navigation.navigate('Panier', {userId})}}>
+                                <View style={styles.basketButton}>
+                                    <Text style={styles.textButton}> Panier</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        : profil === 'ADMIN' ?
+                            <View style={styles.container}>
+                                <TouchableOpacity onPress={() => {navigation.navigate('Ajout produit')}}>
+                                    <View style={styles.basketButton}>
+                                        <Text style={styles.textButton}>Ajouter un produit</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            <></>
+                    :
+                    <></>
+            }
+            <ScrollView style={styles.scrollview(activeMenu)} contentOffset={{ y: offsetScroll }}>
                 {
                     activeMenu === 'photo' ?
                         <ListPhoto photos={list} offsetScroll={offsetScroll} setOffsetScroll={setOffsetScroll} />
@@ -85,12 +110,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation })
                                 </TouchableOpacity>
                             </View>
                             : activeMenu === 'buyPhoto' ?
-                                Alert.alert('Information', `L'achat de modèle photo est actuellement indisponible.`, [
-                                    {
-                                        text: "Ok",
-                                        onPress: () => setActiveMenu('photo')
-                                    }
-                                ])
+                                <BuyPhoto />
                                 :
                                 <></>
                 }
@@ -106,9 +126,9 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation })
 }
 
 const styles = StyleSheet.create({
-    scrollview: {
-        height: hp(82),
-    },
+    scrollview: (activeMenu) => ({
+        height: activeMenu != 'buyPhoto' ? hp(82) : hp(73),
+    }),
     container: {
         padding: 10,
     },
@@ -139,7 +159,6 @@ const styles = StyleSheet.create({
         color: colors.cyan
     },
     deleteButton: {
-        zIndex: 1,
         position: 'absolute',
         right: 0,
         padding: 2,
@@ -148,6 +167,16 @@ const styles = StyleSheet.create({
     },
     deleteIcon: {
         color: colors.white
+    },
+    textButton: {
+        color: colors.white,
+        fontSize: 20,
+    },
+    basketButton: {
+        backgroundColor: colors.cyan,
+        alignItems: 'center',
+        paddingVertical: 10,
+        borderRadius: 5,
     }
 })
 

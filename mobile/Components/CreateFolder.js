@@ -31,7 +31,7 @@ const CreateFolder = ({ setCreateFolderIsClicked, createFolder }) => {
                 <TextInput style={styles.inputText}
                     onChangeText={e => setNameFolder(e)}
                     placeholder='Nom du dossier'
-                    placeholderTextColor={colors.grey} />
+                    placeholderTextColor={colors.gray} />
                 <TouchableOpacity onPress={() => handleSubmit(setCreateFolderIsClicked, createFolder, nameFolder)}>
                     <View style={styles.button}>
                         <Text style={styles.textButton}>Créer</Text>

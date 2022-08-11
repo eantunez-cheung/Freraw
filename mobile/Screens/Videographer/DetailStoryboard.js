@@ -71,7 +71,7 @@ const DetailStoryboard = ({ route, list, changeScene, changeStoryboard, navigati
                 <Text style={styles.title}>{storyboard.nameStoryboard}</Text>
                 <TextInput style={styles.inputText}
                     placeholder="Recherche par lieu"
-                    placeholderTextColor={colors.grey}
+                    placeholderTextColor={colors.gray}
                     onChangeText={e => setSearchSceneByPlace(e)} />
                 {
                     searchSceneByPlace === '' ?

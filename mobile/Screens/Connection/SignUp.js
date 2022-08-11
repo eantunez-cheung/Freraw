@@ -4,6 +4,7 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
+    Alert,
     StyleSheet
 } from "react-native";
 import colors from "../../Util/colors";
@@ -13,6 +14,34 @@ import {
     faCircleCheck,
     faCircleXmark
 } from '@fortawesome/free-solid-svg-icons';
+
+const handleRegister = async (userName, email, password, confirmPassword, emailValid, navigation) => {
+    if (!userName.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
+        Alert.alert('Attention', 'Tous les champs doivent être remplit.')
+    } else if (!emailValid) {
+        Alert.alert('Attention', 'l\'adresse mail n\'est pas valide.')
+    } else if (password != confirmPassword) {
+        Alert.alert('Attention', 'Le mot de passe et la confirmation de mot de passe sont différent.')
+    } else {
+        const succesRegister = await ajax.register(userName, password, email)
+        if (succesRegister === 'user name exist') {
+            Alert.alert('Information', 'Le nom utiisateur est déjà existant.\nVeuillez choisir un nom utilisateur valide.')
+        }
+        if (succesRegister === 'email exist') {
+            Alert.alert('Information', 'L\'adresse mail est déjà utiliser.\nVeuillez choisir une adresse mail valide.')
+        }
+        if (succesRegister === 'succes') {
+            Alert.alert('Information', 'Votre compte à bien été créé', [
+                {
+                    text: 'Ok',
+                    onPress: () => {
+                        navigation.navigate('Connexion')
+                    }
+                }
+            ])
+        }
+    }
+}
 
 export default function SignUp({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -24,14 +53,16 @@ export default function SignUp({ navigation }) {
     const validateEmail = (text) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
         setEmailValid(reg.test(text))
+        setEmail(text)
     }
 
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Nom utilisateur :</Text>
-            <TextInput style={styles.inputText} />
+            <TextInput style={styles.inputText}
+                onChangeText={(e) => setUserName(e)} />
             <View style={{ flexDirection: 'row', alignItems: "center" }}>
-                <Text style={styles.text}>Email :</Text>
+                <Text style={styles.text}>Adresse mail :</Text>
                 {
                     emailValid != null ?
                         <FontAwesomeIcon icon={emailValid ? faCircleCheck : faCircleXmark}
@@ -41,7 +72,9 @@ export default function SignUp({ navigation }) {
                 }
             </View>
             <TextInput style={styles.inputText}
-                onChangeText={validateEmail} />
+                onChangeText={validateEmail}
+                keyboardType={'email-address'}
+            />
             <Text style={styles.text}>Mot de passe :</Text>
             <TextInput style={styles.inputText}
                 secureTextEntry={true}
@@ -59,7 +92,7 @@ export default function SignUp({ navigation }) {
             <TextInput style={styles.inputText}
                 secureTextEntry={true}
                 onChangeText={(e) => setConfirmPassword(e)} />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleRegister(userName, email, password, confirmPassword, emailValid, navigation)}>
                 <View style={styles.button}>
                     <Text style={styles.textButton}>S'enregistrer</Text>
                 </View>

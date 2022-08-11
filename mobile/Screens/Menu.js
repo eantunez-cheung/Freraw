@@ -28,12 +28,14 @@ const module = [
 
 export default function Menu({ navigation, route }) {
     const userId = route.params.userId
+    const profil = route.params.profil
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Bienvenue Fréraw</Text>
             {
                 module.map((item, index) => (
-                    <TouchableOpacity key={index} onPress={() => navigation.navigate(item.title)}>
+                    <TouchableOpacity key={index} onPress={() => navigation.navigate(item.title, {userId, profil})}>
                         <View style={styles.button(index)}>
                             <FontAwesomeIcon icon={item.icon} style={styles.icon} size={30} />
                             <Text style={styles.textButton}>{item.title}</Text>
