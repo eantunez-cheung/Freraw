@@ -36,9 +36,9 @@ export default {
         let formData = new FormData()
         formData.append('title', productName)
         formData.append('file', {
-            uri: imageFile.uri,
-            name: imageFile.fileName,
-            type: imageFile.type
+            "uri": imageFile.uri,
+            "name": imageFile.fileName,
+            "type": imageFile.type
         })
         formData.append('price', price)
         formData.append('orientation', orientation)

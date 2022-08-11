@@ -40,7 +40,7 @@ class ProductController extends Controller
         // $payload = json_decode($request->getContent(), true);
         $payload = $request->all();
         $file = $request->file('file');
-        // return response()->json($payload);
+        return response()->json($payload);
         return response()->json($request->hasFile('file'));
         
         // $productNameExist = Product::where('title', $payload['productName'])->first();
