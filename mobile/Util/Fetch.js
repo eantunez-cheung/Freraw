@@ -1,5 +1,3 @@
-import axios from "axios"
-
 const URI = "http://10.0.2.2:8000/api"
 
 export default {
@@ -34,31 +32,6 @@ export default {
             console.log(e)
         }
     },
-    // uploadProduct(productName, imageFile, price, orientation) {
-    //     const config = {
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'multipart/form-data',
-    //         },
-    //     }
-    //     let data = new FormData()
-    //     data.append('file', {
-    //         uri: imageFile.uri,
-    //         name: imageFile.fileName,
-    //         type: imageFile.type
-    //     })
-    //     // console.log(data._parts)
-    //     const data2 = {file: {
-    //         uri: imageFile.uri,
-    //         name: imageFile.fileName,
-    //         type: imageFile.type
-    //     }}
-    //     axios.post(`${URI}/products`, data, config)
-    //         .then(response => {
-    //             console.log(response.data)
-    //         })
-    //         .catch(error => console.log(error))
-    // },
     async uploadProduct(productName, imageFile, price, orientation) {
         let formData = new FormData()
         formData.append('title', productName)
