@@ -31,7 +31,7 @@ const handleConnection = async (userName, setUserName, password, setPassword, na
         } else {
             setUserName('')
             setPassword('')
-            navigation.navigate('Menu', { userId: user.userId, profil: user.profil })
+            navigation.navigate('Menu', { userId: user.userId, profil: user.profil, basketId: user.basketId })
         }
 
     }

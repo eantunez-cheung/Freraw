@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Basket;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class UserController extends Controller
         if ($user === null) {
             return response()->json(["userExist" => false]);
         }
-        return response()->json(["userExist" => true, "userId" => $user['user_id'], "profil" => $user['profil']]);
+        $basket = Basket::where('user_id', $user['id'])->first();
+        return response()->json(["userExist" => true, "userId" => $user['id'], "profil" => $user['profil'], "basketId" => $basket['id']]);
     }
 
     /**
@@ -60,7 +62,11 @@ class UserController extends Controller
         $user->profil = 'CLIENT';
         $user->save();
 
-        return response()->json('succes');
+        $basket = new Basket();
+        $basket->user_id = $user->id;
+        $basket->save();
+
+        return response()->json("succes");
     }
 
     /**

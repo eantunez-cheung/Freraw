@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     View,
     ScrollView,
@@ -27,6 +27,7 @@ import ListPhoto from "../../Components/Photographer/ListPhoto";
 import colors from "../../Util/colors";
 import CreateFolder from "../../Components/CreateFolder";
 import BuyPhoto from "../../Components/Photographer/BuyPhoto";
+import ajax from "../../Util/Fetch";
 
 const elementNavBar = [
     { icon: faImage, activeMenu: "photo" },
@@ -47,11 +48,28 @@ const handleRemoveFile = (id, fileName, removeFolder) => {
 }
 
 const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, route }) => {
+    const [numberLine, setNumberLine] = useState([])
+    const [refreshNumberLine, setRefreshNumberLine] = useState(false)
     const [activeMenu, setActiveMenu] = useState('photo')
     const [createFolderIsClicked, setCreateFolderIsClicked] = useState(false)
     const [offsetScroll, setOffsetScroll] = useState(0)
     const userId = route.params.userId
     const profil = route.params.profil
+    const basketId = route.params.basketId
+
+    const fetchData = useCallback(async () => {
+        const data = await ajax.getNumberCommandLine(basketId)
+        setNumberLine(data)
+    }, [])
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+        fetchData()
+        })
+        if (activeMenu === 'buyPhoto') {
+            fetchData()
+        }
+    }, [fetchData, refreshNumberLine, navigation])
 
     return (
         <View>
@@ -60,15 +78,17 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
                 activeMenu === 'buyPhoto' ?
                     profil === 'CLIENT' ?
                         <View style={styles.container}>
-                            <TouchableOpacity onPress={() => {navigation.navigate('Panier', {userId})}}>
+                            <TouchableOpacity onPress={() => { navigation.navigate('Panier', { basketId, userId }) }}>
                                 <View style={styles.basketButton}>
-                                    <Text style={styles.textButton}> Panier</Text>
+                                    <Text></Text>
+                                    <Text style={styles.textButton}>Panier</Text>
+                                    <Text style={styles.textButton}>{numberLine}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         : profil === 'ADMIN' ?
                             <View style={styles.container}>
-                                <TouchableOpacity onPress={() => {navigation.navigate('Ajout produit')}}>
+                                <TouchableOpacity onPress={() => { navigation.navigate('Ajout produit') }}>
                                     <View style={styles.basketButton}>
                                         <Text style={styles.textButton}>Ajouter un produit</Text>
                                     </View>
@@ -110,7 +130,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
                                 </TouchableOpacity>
                             </View>
                             : activeMenu === 'buyPhoto' ?
-                                <BuyPhoto />
+                                <BuyPhoto basketId={basketId} profil={profil} refreshNumberLine={refreshNumberLine} setRefreshNumberLine={setRefreshNumberLine} />
                                 :
                                 <></>
                 }
@@ -175,9 +195,11 @@ const styles = StyleSheet.create({
     basketButton: {
         backgroundColor: colors.cyan,
         alignItems: 'center',
-        paddingVertical: 10,
+        justifyContent: 'space-between',
+        padding: 10,
         borderRadius: 5,
-    }
+        flexDirection: 'row'
+    },
 })
 
 const mapStateProps = state => ({

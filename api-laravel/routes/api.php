@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommandLineController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -21,6 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('users', UserController::class);
-Route::post('login/', [UserController::class, 'login']);
+Route::post('login', [UserController::class, 'login']);
 
 Route::resource('products', ProductController::class);
+Route::post('uploadProducts', [ProductController::class, 'uploadProduct']);
+
+Route::resource('command_line', CommandLineController::class);
+Route::get('basket/{basketid}', [CommandLineController::class, 'getProductByBasket']);
+Route::get('number_command_line/{basketid}', [CommandLineController::class, 'getNumberCommandLine']);

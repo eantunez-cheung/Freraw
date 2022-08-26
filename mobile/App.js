@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'react-native'
 import { Provider } from 'react-redux';
 import { NavigationContainer } from "@react-navigation/native";
@@ -31,6 +31,7 @@ import colors from './Util/colors';
 const Stack = createStackNavigator()
 
 export default function App() {
+  const[publishableKey, setPublishableKey] = useState('')
 
   return (
     <Provider store={store}>

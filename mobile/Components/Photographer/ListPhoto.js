@@ -30,7 +30,7 @@ const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
     const [photoUri, setPhotoUri] = useState(null)
     const [initialImage, setInitialImage] = useState(0)
     const [lastImage, setLastImage] = useState(10)
-
+    
 
     const handleOpenFile = (uri, format) => {
         setPhotoUri(uri)
@@ -48,7 +48,7 @@ const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
 
         setOffsetScroll(getOffset(offsetScroll))
     }
-
+    
     const handleNext = () => {
         setInitialImage(initialImage + 10)
         setLastImage(lastImage + 10)
@@ -60,26 +60,26 @@ const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
             {
                 photos.slice(initialImage, lastImage).map((image, index) => (
                     <TouchableOpacity key={index} onPress={() => handleOpenFile(image.url.uri, image.format)}>
-                        <Image style={styles.image} source={{ uri: image.url.uri }} />
-                    </TouchableOpacity>
+                            <Image style={styles.image} source={{ uri: image.url.uri }} />
+                        </TouchableOpacity>
                 ))
             }
             <View style={styles.buttonArrowContainer}>
-                <TouchableOpacity onPress={handleBack} disabled={initialImage === 0 ? true : false}>
-                    <FontAwesomeIcon icon={faAngleLeft} size={30} style={initialImage === 0 ? styles.angleArrowDisabled : styles.angleArrow} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleNext} disabled={lastImage >= photos.length ? true : false}>
-                    <FontAwesomeIcon icon={faAngleRight} size={30} style={lastImage >= photos.length ? styles.angleArrowDisabled : styles.angleArrow} />
-                </TouchableOpacity>
-            </View>
-            <Modal visible={selectedPhoto} transparent={selectedPhoto}>
-                <TouchableOpacity style={styles.closeButton} onPress={() => setSelectedPhoto(false)}>
-                    <FontAwesomeIcon icon={faXmark} size={30} style={styles.icon} />
-                </TouchableOpacity>
-                <View style={styles.modalContainer}>
-                    <Image source={{ uri: photoUri }} style={styles.zoomImg(heightImage)} />
+                    <TouchableOpacity onPress={handleBack} disabled={initialImage === 0 ? true : false}>
+                        <FontAwesomeIcon icon={faAngleLeft} size={30} style={initialImage === 0 ? styles.angleArrowDisabled : styles.angleArrow} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleNext} disabled={lastImage >= photos.length ? true : false}>
+                        <FontAwesomeIcon icon={faAngleRight} size={30} style={lastImage >= photos.length ? styles.angleArrowDisabled : styles.angleArrow} />
+                    </TouchableOpacity>
                 </View>
-            </Modal>
+                <Modal visible={selectedPhoto} transparent={selectedPhoto}>
+                    <TouchableOpacity style={styles.closeButton} onPress={() => setSelectedPhoto(false)}>
+                        <FontAwesomeIcon icon={faXmark} size={30} style={styles.icon} />
+                    </TouchableOpacity>
+                    <View style={styles.modalContainer}>
+                        <Image source={{ uri: photoUri }} style={styles.zoomImg(heightImage)} />
+                    </View>
+                </Modal>
         </View>
     )
 }
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         color: colors.blue
     },
     angleArrowDisabled: {
-        color: colors.gray
+        color: colors.grey
     },
     buttonArrowContainer: {
         flexDirection: 'row',

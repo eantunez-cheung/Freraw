@@ -39,7 +39,7 @@ export default function Materials({
                             value={material.name}
                             style={styles.inputText}
                             placeholder="Nom de l'élément"
-                            placeholderTextColor={colors.gray}
+                            placeholderTextColor={colors.grey}
                             onChange={e => changeMaterials(index, {
                                 name: e.nativeEvent.text,
                             })} />

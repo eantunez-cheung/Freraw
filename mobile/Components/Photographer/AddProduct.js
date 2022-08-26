@@ -27,6 +27,7 @@ const pickImage = async (setImage) => {
     }, (response) => {
         if (!response.didCancel) {
             let imageFile = response.assets.find(obj => obj)
+            // console.log(imageFile)
             setImage(imageFile)
         }
     })
@@ -39,7 +40,7 @@ const handleSave = async (productName, image, price, orientation, priceValid, na
         Alert.alert('Attention', 'Le format du prix est incorrecte. ex : 1.05, 10.90')
     } else {
         let response = await ajax.uploadProduct(productName, image, price, orientation)
-        console.log(response)
+        // console.log(response)
     }
 }
 
