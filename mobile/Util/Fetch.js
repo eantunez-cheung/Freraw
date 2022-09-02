@@ -145,7 +145,7 @@ export default {
     async getBasket(basketId){
         try {
             let response = await fetch(`${URI}/basket/${basketId}`)
-            let responseJsonData = response.json()
+            let responseJsonData = await response.json()
             return responseJsonData
         } catch (error) {
             console.log(error)
@@ -154,7 +154,7 @@ export default {
     async getNumberCommandLine(basketId){
         try {
             let response = await fetch(`${URI}/number_command_line/${basketId}`) 
-            let responseJsonData = response.json()
+            let responseJsonData =  await response.json()
             return responseJsonData
         } catch (error) {
             console.log(error)
@@ -169,7 +169,7 @@ export default {
                     "basketId": basketId
                 })
             })
-            let responseJsonData = response.json()
+            let responseJsonData = await response.json()
             return responseJsonData
         } catch (error) {
             console.log(error)
@@ -180,7 +180,16 @@ export default {
             let response = await fetch(`${URI}/command_line/${id}`, {
                 method: 'DELETE'
             })
-            let responseJsonData = response.json()
+            let responseJsonData = await response.json()
+            return responseJsonData
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    async getStripePK() {
+        try {
+            const response = await fetch('http://10.0.2.2:4242/config')
+            const responseJsonData = await response.json()
             return responseJsonData
         } catch (error) {
             console.log(error)

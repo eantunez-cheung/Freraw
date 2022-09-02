@@ -89,7 +89,7 @@ const DetailList = ({ route, list, addElementList, changeElementCheckList, navig
                 {
                     (currentList.materials.map((item, index) => (
                         <TouchableOpacity key={index} style={styles.containerItem} onPress={() => onChecked(route.params.indexList, index)}>
-                            <CheckBox value={item.isCheck} onValueChange={() => { onChecked(route.params.indexList, index) }} tintColors={{ false: colors.gray, true: colors.cyan }} />
+                            <CheckBox value={item.isCheck} onValueChange={() => { onChecked(route.params.indexList, index) }} tintColors={{ false: colors.grey, true: colors.cyan }} />
                             <Text style={styles.text}>{item.name}</Text>
                         </TouchableOpacity>
                     )))

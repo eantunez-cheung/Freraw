@@ -30,3 +30,7 @@ Route::post('uploadProducts', [ProductController::class, 'uploadProduct']);
 Route::resource('command_line', CommandLineController::class);
 Route::get('basket/{basketid}', [CommandLineController::class, 'getProductByBasket']);
 Route::get('number_command_line/{basketid}', [CommandLineController::class, 'getNumberCommandLine']);
+
+Route::get('/', function () {
+    return view('paymentView');
+});

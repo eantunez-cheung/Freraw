@@ -4,6 +4,7 @@ import {
     ScrollView,
     Text,
     TouchableOpacity,
+    Alert,
     StyleSheet
 } from "react-native";
 import colors from "../../Util/colors";
@@ -12,20 +13,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import axios from "axios";
+import { PaymentView } from "../../Components/Photographer/PaymentView";
+import WebView from 'react-native-webview';
 
 
 const handleDeleteLine = async id => {
     let response = await ajax.deleteProductInBasket(id)
 }
-const handlePayment = amount => {
-
-}
 
 export default function Basket({ navigation, route }) {
+    const [response, setResponse] = useState()
+    const [makePayment, setMakePayment] = useState(false)
+    const [paymentStatus, setPaymentStatus] = useState('')
+
     const [basket, setBasket] = useState([])
     const [refreshData, setRefreshData] = useState(false)
     const totalPrice = basket.reduce((totalPrice, product) => totalPrice = totalPrice + product.price, 0)
+    const strProduct = basket.reduce((str, product) => str = str + product.title + ', ', '')
     const basketId = route.params.basketId
     const userId = route.params.userId
 
@@ -39,36 +43,40 @@ export default function Basket({ navigation, route }) {
     }, [fetchData, refreshData])
 
     return (
-        <View style={styles.container}>
-            <ScrollView style={{ height: "93%" }}>
-                <View style={styles.table}>
-                    <Text style={styles.tableTitle}>Nom du produit</Text>
-                    <Text style={styles.tableTitle}>Prix</Text>
-                </View>
-                {
-                    basket.map((product, index) => (
-                        <View key={index} style={styles.containerProduct}>
-                            <Text style={styles.tableText}>{product.title}</Text>
-                            <View style={styles.containerPrice}>
-                                <Text style={styles.tableText}>{product.price}€</Text>
-                                <TouchableOpacity onPress={() => {
-                                    handleDeleteLine(product.command_line_id)
-                                    setRefreshData(!refreshData)
-                                }}>
-                                    <FontAwesomeIcon icon={faXmark} size={25} style={styles.icon} />
-                                </TouchableOpacity>
+        !makePayment ?
+            <View style={styles.container}>
+                <ScrollView style={{ height: "93%" }}>
+                    <View style={styles.table}>
+                        <Text style={styles.tableTitle}>Nom du produit</Text>
+                        <Text style={styles.tableTitle}>Prix</Text>
+                    </View>
+                    {
+                        basket.map((product, index) => (
+                            <View key={index} style={styles.containerProduct}>
+                                <Text style={styles.tableText}>{product.title}</Text>
+                                <View style={styles.containerPrice}>
+                                    <Text style={styles.tableText}>{product.price}€</Text>
+                                    <TouchableOpacity onPress={() => {
+                                        handleDeleteLine(product.command_line_id)
+                                        setRefreshData(!refreshData)
+                                    }}>
+                                        <FontAwesomeIcon icon={faXmark} size={25} style={styles.icon} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        </View>
-                    ))
-                }
-                <Text style={styles.totalPrice}>Total : {totalPrice}€</Text>
-            </ScrollView>
-            <TouchableOpacity onPress={() => handlePayment(totalPrice)}>
-                <View style={styles.basketButton}>
-                    <Text style={styles.textButton}>Payer</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+                        ))
+                    }
+                    <Text style={styles.totalPrice}>Total : {totalPrice}€</Text>
+                </ScrollView>
+                <TouchableOpacity onPress={() => setMakePayment(true)}>
+                    <View style={styles.basketButton}>
+                        <Text style={styles.textButton}>Payer</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            :
+            <WebView source={{uri: 'http://public.test/api'}} />
+            // <PaymentView />
     )
 }
 

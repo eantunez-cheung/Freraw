@@ -24,15 +24,13 @@ import DetailsTip from './Screens/Tips/DetailsTip';
 import Photographer from './Screens/Photographer/Photographer';
 import Donation from './Screens/Donation/Donation';
 import MyPhoto from './Screens/Photographer/MyPhoto';
-import Basket from './Components/Photographer/Basket';
+import Basket from './Screens/Photographer/BasketScreen';
 import AddProduct from './Components/Photographer/AddProduct';
 import colors from './Util/colors';
 
 const Stack = createStackNavigator()
 
 export default function App() {
-  const[publishableKey, setPublishableKey] = useState('')
-
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

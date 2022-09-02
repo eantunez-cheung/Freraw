@@ -147,7 +147,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
 
 const styles = StyleSheet.create({
     scrollview: (activeMenu) => ({
-        height: activeMenu != 'buyPhoto' ? hp(82) : hp(73),
+        height: activeMenu != 'buyPhoto' ? hp(85) : hp(75),
     }),
     container: {
         padding: 10,

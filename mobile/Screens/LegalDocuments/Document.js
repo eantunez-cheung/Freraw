@@ -80,17 +80,17 @@ const Document = ({ route, changeClientDocuments, navigation }) => {
                 <View style={styles.container}>
                     <Text style={styles.title}>{route.params.headerName}</Text>
                     <Text style={styles.text}>Je soussigné</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
                     <Text style={styles.text}>(pour les mineurs) représentant légal de</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom de l'enfant" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameChild: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom de l'enfant" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameChild: e })} />
                     <Text style={styles.text}>résidant au</Text>
-                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
+                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
                     <Text style={styles.text}>Tél (Facultatif)</Text>
                     <TextInput style={styles.inputText} keyboardType="phone-pad" onChangeText={e => setInfoDocument({ ...infoDocument, phoneNumber: e })} />
                     <Text style={styles.text}>E-mail</Text>
                     <TextInput style={styles.inputText} keyboardType="email-address" onChangeText={e => setInfoDocument({ ...infoDocument, mail: e })} />
                     <Text style={styles.text}>{`\nAutorise`}</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom du professionnel" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom du professionnel" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
                     <Text style={styles.text}>{`à utiliser mon image ou celle des mineurs dont je suis représentant légal, dans le but de promouvoir ses activités, que ce soit sous la forme de photos, vidéos, affiches, dépliants, éditions papier, ou toute autre forme de communication, et ce, sans aucune indemnité et sans limite dans le temps.
 
 Je déclare avoir 18 ans ou plus et avoir la capacité de signer ce formulaire en mon propre nom.
@@ -115,15 +115,15 @@ J'ai lu et compris toutes les significations de cette renonciation.\n`}</Text>
                 <View style={styles.container}>
                     <Text style={styles.title}>{route.params.headerName}</Text>
                     <Text style={styles.text}>Je soussigné</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
                     <Text style={styles.text}>résidant au</Text>
-                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
+                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
                     <Text style={styles.text}>Tél (Facultatif)</Text>
                     <TextInput style={styles.inputText} keyboardType="phone-pad" onChangeText={e => setInfoDocument({ ...infoDocument, phoneNumber: e })} />
                     <Text style={styles.text}>E-mail</Text>
                     <TextInput style={styles.inputText} keyboardType="email-address" onChangeText={e => setInfoDocument({ ...infoDocument, mail: e })} />
                     <Text style={styles.text}>{`\nAutorise`}</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom du professionnel" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom du professionnel" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
                     <Text style={styles.text}>{`à réaliser une prestation de droniste sur ma propriété dans le but de promouvoir ses activités, que ce soit sous la forme de photos, vidéos, affiches, dépliants, éditions papier, ou toute autre forme de communication, et ce, sans aucune indemnité et sans limite dans le temps.
 
 Je déclare avoir 18 ans ou plus et avoir la capacité de signer ce formulaire en mon propre nom.
@@ -149,11 +149,11 @@ J'ai lu et compris toutes les significations de cette renonciation.\n`}</Text>
                 <View style={styles.container}>
                     <Text style={styles.title}>Décharge de responsabilité</Text>
                     <Text style={styles.text}>Je soussigné</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM Prénom du client" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameClient: e })} />
                     <Text style={styles.text}>Résidant au</Text>
-                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
+                    <TextInput style={styles.inputText} placeholder="Adresse complète" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, address: e })} />
                     <Text style={styles.text}>Par la présente, je déclare assumer tous les risques de participation à toutes les activités menées par</Text>
-                    <TextInput style={styles.inputText} placeholder="NOM prénom du professionnel" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
+                    <TextInput style={styles.inputText} placeholder="NOM prénom du professionnel" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNamePro: e })} />
                     <Text style={styles.text}>{`tel que à titre d’exemple et non limitatif, tout risque pouvant résulter de la négligence des personnes ou entités, d’équipements ou biens dangereux ou défectueux qu’ils possèdent, entretiennent ou contrôlent.
 
 Je certifie que je suis en bonne forme physique, que je suis suffisamment préparé ou formé pour participer à cette activité et qu'aucun professionnel qualifié de santé ne m'a conseillé de ne pas y participer. 
@@ -168,7 +168,7 @@ suivants à mon nom et celui de mes exécuteurs testamentaires, mes héritiers, 
 (1) Je libère de toute responsabilité, y compris, mais sans s’y limiter la responsabilité liée à la négligence qui peut entrainer mon décès, invalidité, blessures, dommages corporelles, vol ou action en tout genre qui peut m’arriver y compris pendant le trajet vers et depuis cette activité.
 
 (2) Je m'engage à ne pas poursuivre juridiquement les personnes ou entités mentionnés dans ce paragraphe pour toute responsabilité ou réclamation découlant de la participation à cette activité, que ce soit causé par négligence ou pas. Je reconnais que`}</Text>
-                    <TextInput style={styles.inputText} placeholder="Nom de l'entreprise" placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, company: e })} />
+                    <TextInput style={styles.inputText} placeholder="Nom de l'entreprise" placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, company: e })} />
                     <Text style={styles.text}>{`et leurs dirigents, employés, bénévoles et représentants ne sont pas responsables des erreurs, omissions, actions ou manquements de toute personne menant une activité specifique pour leur compte.
 
 Je reconnais que cette activité peut impliquer un test pour les limites physiques et mentales d'une  personne et potentiellement peut entraîner la mort, des blessures graves ou invalidité. Les risques incluent, sans toutefois s'y limiter, ceux causés par le terrain, les installations, la température, les conditions météorologiques, l'état des participants, le matériel, la circulation des automobiles, le manque d'hydratation et les actions d'autres personnes, notamment celle des participants, bénévoles ou moniteurs.
@@ -186,7 +186,7 @@ Je certifie avoir lu ce document et comprendre pleinement son contenu. Je suis c
                     <Text style={styles.text}>Signature :</Text>
                     <Signature onChange={setSignatureReleasor} document={signatureReleasor} />
                     <Text style={styles.text}>Si moins de 18 ans, le parent ou le tuteur doit également signer.</Text>
-                    <TextInput style={styles.inputText} placeholder='NOM Prénom du parent/tuteur' placeholderTextColor={colors.gray} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameParent: e })} />
+                    <TextInput style={styles.inputText} placeholder='NOM Prénom du parent/tuteur' placeholderTextColor={colors.grey} onChangeText={e => setInfoDocument({ ...infoDocument, fullNameParent: e })} />
                     <Text style={styles.text}>Signature :</Text>
                     <Signature onChange={setSignatureParent} document={signatureParent} />
                     <Text style={styles.text}>Renonciataire : {infoDocument.fullNamePro}</Text>
