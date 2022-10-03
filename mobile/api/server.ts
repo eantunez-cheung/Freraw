@@ -40,7 +40,8 @@ app.get('/config', (_: Request, res: Response): void => {
 })
 
 app.post("/create-payment-intent", async (req: Request, res: Response): Promise<void> => {
-    const { currency, amount, paymentMethodType, paymentMethodOptions }: { currency: string, amount: number, paymentMethodType: string, paymentMethodOptions?: object } = req.body
+    const { currency, amount, paymentMethodType, paymentMethodOptions }:
+        { currency: string, amount: number, paymentMethodType: string, paymentMethodOptions?: object } = req.body
 
     const params: Stripe.PaymentIntentCreateParams = {
         amount,

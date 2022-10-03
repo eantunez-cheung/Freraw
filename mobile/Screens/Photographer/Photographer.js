@@ -53,6 +53,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
     const [activeMenu, setActiveMenu] = useState('photo')
     const [createFolderIsClicked, setCreateFolderIsClicked] = useState(false)
     const [offsetScroll, setOffsetScroll] = useState(0)
+    const [productsPurchased, setProductsPurchased] = useState([])
     const userId = route.params.userId
     const profil = route.params.profil
     const basketId = route.params.basketId
@@ -60,6 +61,8 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
     const fetchData = useCallback(async () => {
         const data = await ajax.getNumberCommandLine(basketId)
         setNumberLine(data)
+        const dataProductsPurchased = await ajax.getPhotosPurchased(userId)
+        setProductsPurchased(dataProductsPurchased)
     }, [])
 
     useEffect(() => {
@@ -89,7 +92,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
                         : profil === 'ADMIN' ?
                             <View style={styles.container}>
                                 <TouchableOpacity onPress={() => { navigation.navigate('Ajout produit') }}>
-                                    <View style={styles.basketButton}>
+                                    <View style={styles.addProductButton}>
                                         <Text style={styles.textButton}>Ajouter un produit</Text>
                                     </View>
                                 </TouchableOpacity>
@@ -102,7 +105,7 @@ const Photographer = ({ list, myPhoto, createFolder, removeFolder, navigation, r
             <ScrollView style={styles.scrollview(activeMenu)} contentOffset={{ y: offsetScroll }}>
                 {
                     activeMenu === 'photo' ?
-                        <ListPhoto photos={list} offsetScroll={offsetScroll} setOffsetScroll={setOffsetScroll} />
+                        <ListPhoto photos={list} offsetScroll={offsetScroll} setOffsetScroll={setOffsetScroll} productsPurchased={productsPurchased} />
                         : activeMenu === 'myPhoto' ?
                             <View style={styles.container}>
                                 <View style={styles.containerFolderButton}>
@@ -200,6 +203,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flexDirection: 'row'
     },
+    addProductButton: {
+        backgroundColor: colors.cyan,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        borderRadius: 5,
+        flexDirection: 'row'
+    }
 })
 
 const mapStateProps = state => ({

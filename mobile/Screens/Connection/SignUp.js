@@ -23,7 +23,7 @@ const handleRegister = async (userName, email, password, confirmPassword, emailV
     } else if (password != confirmPassword) {
         Alert.alert('Attention', 'Le mot de passe et la confirmation de mot de passe sont différent.')
     } else {
-        const succesRegister = await ajax.register(userName, password, email)
+        const succesRegister = await ajax.register(userName, confirmPassword, email)
         if (succesRegister === 'user name exist') {
             Alert.alert('Information', 'Le nom utiisateur est déjà existant.\nVeuillez choisir un nom utilisateur valide.')
         }

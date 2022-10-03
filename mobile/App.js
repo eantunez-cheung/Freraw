@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { StatusBar } from 'react-native'
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { PersistGate } from 'redux-persist/integration/react';
 import RNBootSplash from 'react-native-bootsplash';
 
 import SignIn from './Screens/Connection/SignIn';

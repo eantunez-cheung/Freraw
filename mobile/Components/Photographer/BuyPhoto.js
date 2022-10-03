@@ -15,15 +15,6 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
-const handleDelete = async (id) => {
-    let response = await ajax.deleteProduct(id)
-    if (response === "succes") {
-        Alert.alert('Information', 'Le produit à été supprimé avec succès.')
-    } else {
-        Alert.alert('Information', 'Un problème à eu lieu lors de la suppression du problème.\nVeuillez contacter le support technique')
-    }
-}
-
 const handleAddBasket = async (productId, basketId) => {
     let response = await ajax.addBasket(productId, basketId)
     if (response === 'exist') {
@@ -33,8 +24,6 @@ const handleAddBasket = async (productId, basketId) => {
 
 export default function BuyPhoto({ basketId, profil, refreshNumberLine, setRefreshNumberLine }) {
     const [products, setProducts] = useState([])
-    const [refreshData, setRefreshData] = useState(false)
-
     const fetchData = useCallback(async () => {
         const data = await ajax.getProducts();
         setProducts(data)
@@ -42,26 +31,19 @@ export default function BuyPhoto({ basketId, profil, refreshNumberLine, setRefre
 
     useEffect(() => {
         fetchData()
-    }, [fetchData, refreshData]);
+    }, [fetchData]);
 
     return (
         <View style={styles.container}>
             {
-                products.map(product => {
-                    return (
+                products.slice().reverse().map(product => (
                         <View key={product.id} style={styles.thumbnailProduct}>
-                            <Image style={styles.image} source={{ uri: `http://10.0.2.2:8000/${product.image_path}` }} />
+                            <Image style={styles.image} source={{ uri: `${product.image_path}` }} />
                             <Text style={styles.title}>{product.title}</Text>
                             <Text style={styles.price}>{product.price}€</Text>
                             {
                                 profil === 'ADMIN' ?
-                                    <TouchableOpacity style={styles.buttonDelete}
-                                        onPress={() => {
-                                            handleDelete(product.id)
-                                            setRefreshData(!refreshData)
-                                        }}>
-                                        <FontAwesomeIcon icon={faXmark} size={30} style={{ color: colors.white }} />
-                                    </TouchableOpacity>
+                                    <></>
                                     :
                                     <TouchableOpacity onPress={() => {
                                         handleAddBasket(product.id, basketId)
@@ -73,9 +55,7 @@ export default function BuyPhoto({ basketId, profil, refreshNumberLine, setRefre
                                     </TouchableOpacity>
                             }
                         </View>
-                    )
-                })
-            }
+                    ))}
         </View>
     )
 }
@@ -120,16 +100,6 @@ const styles = StyleSheet.create({
         right: 0,
         borderBottomRightRadius: 5,
         borderTopLeftRadius: 5
-    },
-    buttonDelete: {
-        backgroundColor: colors.red,
-        alignItems: "center",
-        padding: 5,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        borderTopRightRadius: 5,
-        borderBottomLeftRadius: 5
     },
     textButton: {
         color: colors.white,

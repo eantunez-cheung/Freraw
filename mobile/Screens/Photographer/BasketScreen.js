@@ -22,14 +22,10 @@ const handleDeleteLine = async id => {
 }
 
 export default function Basket({ navigation, route }) {
-    const [response, setResponse] = useState()
     const [makePayment, setMakePayment] = useState(false)
-    const [paymentStatus, setPaymentStatus] = useState('')
-
     const [basket, setBasket] = useState([])
     const [refreshData, setRefreshData] = useState(false)
     const totalPrice = basket.reduce((totalPrice, product) => totalPrice = totalPrice + product.price, 0)
-    const strProduct = basket.reduce((str, product) => str = str + product.title + ', ', '')
     const basketId = route.params.basketId
     const userId = route.params.userId
 
@@ -75,7 +71,8 @@ export default function Basket({ navigation, route }) {
                 </TouchableOpacity>
             </View>
             :
-            <WebView source={{uri: 'http://public.test/api'}} />
+            // <></>
+            <WebView source={{uri: `http://10.0.2.2:8000/api/payment_view/${basketId}/${userId}`}} />
             // <PaymentView />
     )
 }

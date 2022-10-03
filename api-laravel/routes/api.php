@@ -25,12 +25,10 @@ Route::resource('users', UserController::class);
 Route::post('login', [UserController::class, 'login']);
 
 Route::resource('products', ProductController::class);
-Route::post('uploadProducts', [ProductController::class, 'uploadProduct']);
+Route::get('getPoductByUser/{userId}', [ProductController::class, 'getProductByUser']);
 
 Route::resource('command_line', CommandLineController::class);
 Route::get('basket/{basketid}', [CommandLineController::class, 'getProductByBasket']);
 Route::get('number_command_line/{basketid}', [CommandLineController::class, 'getNumberCommandLine']);
-
-Route::get('/', function () {
-    return view('paymentView');
-});
+Route::get('payment_view/{idBasket}/{userId}', [CommandLineController::class, 'paymentView']);
+Route::post('payment_succeeded', [CommandLineController::class, 'paymentSucceeded']);

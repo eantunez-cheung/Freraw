@@ -33,14 +33,19 @@ const pickImage = async (setImage) => {
     })
 }
 
-const handleSave = async (productName, image, price, orientation, priceValid, navigation) => {
+const handleSave = async (productName, image, price, orientation, priceValid) => {
     if (!productName.trim() || image === null || !price.trim() || !orientation.trim()) {
         Alert.alert('Attention', 'Tous les champs sont doivent être remplit.')
     } else if (!priceValid) {
         Alert.alert('Attention', 'Le format du prix est incorrecte. ex : 1.05, 10.90')
     } else {
         let response = await ajax.uploadProduct(productName, image, price, orientation)
-        // console.log(response)
+        console.log(response)
+        if (response.success) {
+            Alert.alert('Information', response.message)
+        } else if (!response.success) {
+            Alert.alert('Information', response.message)
+        }
     }
 }
 
@@ -54,8 +59,6 @@ export default function AddProduct({ navigation }) {
     const [price, setPrice] = useState('')
     const [priceValid, setPriceValid] = useState(null)
     const [orientation, setOrientation] = useState(null)
-    // console.log(priceValid)
-    // console.log(image)
 
     const validatePrice = text => {
         const reg = /^([0-9]{1,})?(\.)?([0-9]{1,})?$/
@@ -105,7 +108,7 @@ export default function AddProduct({ navigation }) {
                 onChangeText={validatePrice}
                 keyboardType={'decimal-pad'}
             />
-            <TouchableOpacity onPress={() => handleSave(productName, image, price, orientation, priceValid, navigation)}>
+            <TouchableOpacity onPress={() => handleSave(productName, image, price, orientation, priceValid)}>
                 <View style={styles.buttonSave}>
                     <Text style={styles.textButton}>Enregistrer produit</Text>
                 </View>

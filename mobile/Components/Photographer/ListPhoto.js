@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     View,
     Modal,
@@ -16,21 +16,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import colors from "../../Util/colors";
+import ajax from "../../Util/Fetch";
+
 
 const getOffset = (initOffset) => {
-    if (initOffset === 0) {
-        return 1
-    }
+    if (initOffset === 0) return 1
     return 0
 }
 
-const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
+const ListPhoto = ({ photos, offsetScroll, setOffsetScroll, productsPurchased }) => {
     const [selectedPhoto, setSelectedPhoto] = useState(false)
     const [heightImage, setHeightImage] = useState(null)
     const [photoUri, setPhotoUri] = useState(null)
     const [initialImage, setInitialImage] = useState(0)
     const [lastImage, setLastImage] = useState(10)
-    
+    let data = [...productsPurchased.reverse(), ...photos]
+
 
     const handleOpenFile = (uri, format) => {
         setPhotoUri(uri)
@@ -48,7 +49,7 @@ const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
 
         setOffsetScroll(getOffset(offsetScroll))
     }
-    
+
     const handleNext = () => {
         setInitialImage(initialImage + 10)
         setLastImage(lastImage + 10)
@@ -58,28 +59,28 @@ const ListPhoto = ({ photos, offsetScroll, setOffsetScroll }) => {
     return (
         <View style={styles.container}>
             {
-                photos.slice(initialImage, lastImage).map((image, index) => (
-                    <TouchableOpacity key={index} onPress={() => handleOpenFile(image.url.uri, image.format)}>
-                            <Image style={styles.image} source={{ uri: image.url.uri }} />
-                        </TouchableOpacity>
+                data.slice(initialImage, lastImage).map((image, index) => (
+                    <TouchableOpacity key={index} onPress={() => handleOpenFile(image.uri, image.format)}>
+                        <Image style={styles.image} source={{ uri: image.uri }} />
+                    </TouchableOpacity>
                 ))
             }
             <View style={styles.buttonArrowContainer}>
-                    <TouchableOpacity onPress={handleBack} disabled={initialImage === 0 ? true : false}>
-                        <FontAwesomeIcon icon={faAngleLeft} size={30} style={initialImage === 0 ? styles.angleArrowDisabled : styles.angleArrow} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={handleNext} disabled={lastImage >= photos.length ? true : false}>
-                        <FontAwesomeIcon icon={faAngleRight} size={30} style={lastImage >= photos.length ? styles.angleArrowDisabled : styles.angleArrow} />
-                    </TouchableOpacity>
+                <TouchableOpacity onPress={handleBack} disabled={initialImage === 0 ? true : false}>
+                    <FontAwesomeIcon icon={faAngleLeft} size={30} style={initialImage === 0 ? styles.angleArrowDisabled : styles.angleArrow} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleNext} disabled={lastImage >= photos.length ? true : false}>
+                    <FontAwesomeIcon icon={faAngleRight} size={30} style={lastImage >= photos.length ? styles.angleArrowDisabled : styles.angleArrow} />
+                </TouchableOpacity>
+            </View>
+            <Modal visible={selectedPhoto} transparent={selectedPhoto}>
+                <TouchableOpacity style={styles.closeButton} onPress={() => setSelectedPhoto(false)}>
+                    <FontAwesomeIcon icon={faXmark} size={30} style={styles.icon} />
+                </TouchableOpacity>
+                <View style={styles.modalContainer}>
+                    <Image source={{ uri: photoUri }} style={styles.zoomImg(heightImage)} />
                 </View>
-                <Modal visible={selectedPhoto} transparent={selectedPhoto}>
-                    <TouchableOpacity style={styles.closeButton} onPress={() => setSelectedPhoto(false)}>
-                        <FontAwesomeIcon icon={faXmark} size={30} style={styles.icon} />
-                    </TouchableOpacity>
-                    <View style={styles.modalContainer}>
-                        <Image source={{ uri: photoUri }} style={styles.zoomImg(heightImage)} />
-                    </View>
-                </Modal>
+            </Modal>
         </View>
     )
 }

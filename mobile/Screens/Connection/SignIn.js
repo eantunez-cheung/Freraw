@@ -12,11 +12,7 @@ import ajax from "../../Util/Fetch";
 
 const handleConnection = async (userName, setUserName, password, setPassword, navigation) => {
     if (!userName.trim() || !password.trim()) {
-        Alert.alert('Information', 'Le nom utilisateur et le mot de passe ne doivent pas être vide.', [
-            {
-                text: 'Ok'
-            }
-        ])
+        Alert.alert('Information', 'Le nom utilisateur et/ou le mot de passe ne doivent pas être vide.')
     } else {
         let user = await ajax.login(userName, password)
         if (!user.userExist) {
@@ -33,7 +29,6 @@ const handleConnection = async (userName, setUserName, password, setPassword, na
             setPassword('')
             navigation.navigate('Menu', { userId: user.userId, profil: user.profil, basketId: user.basketId })
         }
-
     }
 }
 
@@ -67,7 +62,8 @@ export default function SignIn({ navigation }) {
                     <Text style={styles.textButton}>Inscription</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => Alert.alert('Information', 'Attention en mode hors-connexion, vous n\'auriez pas accès au photo que vous avez acheté.', [
+            <TouchableOpacity onPress={() => Alert.alert('Information',
+                'Attention en mode hors-connexion, vous n\'auriez pas accès au photo que vous avez acheté.', [
                 {
                     text: 'Continuer',
                     onPress: () => navigation.navigate('Menu', { userId: null, profil: null })
